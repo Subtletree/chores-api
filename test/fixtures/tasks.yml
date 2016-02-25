@@ -1,0 +1,23 @@
+# == Schema Information
+#
+# Table name: tasks
+#
+#  id         :integer          not null, primary key
+#  name       :string
+#  complete   :boolean
+#  job_id     :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  complete: false
+  job: one
+
+two:
+  name: MyString
+  complete: false
+  job: two
