@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160224033046) do
+ActiveRecord::Schema.define(version: 20160229111551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,9 +20,9 @@ ActiveRecord::Schema.define(version: 20160224033046) do
     t.string   "name"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.boolean  "complete"
     t.integer  "user_id"
     t.boolean  "active",     default: false
+    t.boolean  "overdue",    default: false
   end
 
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree
@@ -40,8 +40,12 @@ ActiveRecord::Schema.define(version: 20160224033046) do
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.text     "last_jobs",  default: [],                 array: true
+    t.string   "ip_range"
+    t.boolean  "locked",     default: false
+    t.string   "lock_key"
   end
 
   add_foreign_key "jobs", "users"

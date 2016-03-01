@@ -6,9 +6,9 @@
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  complete   :boolean
 #  user_id    :integer
 #  active     :boolean          default(FALSE)
+#  overdue    :boolean          default(FALSE)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

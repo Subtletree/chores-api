@@ -6,14 +6,14 @@
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  complete   :boolean
 #  user_id    :integer
 #  active     :boolean          default(FALSE)
+#  overdue    :boolean          default(FALSE)
 #
 
 class JobSerializer < ActiveModel::Serializer
 
-  attributes :id, :name, :complete, :active
+  attributes :id, :name, :active
 
   has_many :tasks
   belongs_to :user
