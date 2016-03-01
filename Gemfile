@@ -5,7 +5,7 @@ gem 'rails', github: "rails/rails"
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
 # Use Puma as the app server
-gem 'puma'
+gem 'passenger'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.0'
 # Action Cable dependencies for the Redis adapter

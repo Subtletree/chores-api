@@ -93,8 +93,10 @@ GEM
     nio4r (1.2.1)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
+    passenger (5.0.25)
+      rack
+      rake (>= 0.8.1)
     pg (0.18.4)
-    puma (2.16.0)
     rack (2.0.0.alpha)
       json
     rack-test (0.6.3)
@@ -132,8 +134,8 @@ DEPENDENCIES
   active_model_serializers!
   annotate
   byebug
+  passenger
   pg (~> 0.18)
-  puma
   rails!
   redis (~> 3.0)
   spring
