@@ -16,7 +16,8 @@ class JobsController < ApplicationController
 
   # GET /jobs
   def index
-    @jobs = Job.all
+    @jobs = Job.includes(:tasks, :user).all
+    #@jobs = Job.all
 
     render json: @jobs, include: ['tasks', 'user']
   end
