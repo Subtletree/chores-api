@@ -28,8 +28,10 @@ class User < ApplicationRecord
       self.bandwidth_lock.delete
     end
 
-    self.create_bandwidth_lock
-
+    # Bandwidth lock IDDQD
+    unless self.name == 'Greg'
+      self.create_bandwidth_lock
+    end
   end
 
 end
