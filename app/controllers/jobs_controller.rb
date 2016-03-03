@@ -2,13 +2,14 @@
 #
 # Table name: jobs
 #
-#  id         :integer          not null, primary key
-#  name       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :integer
-#  active     :boolean          default(FALSE)
-#  overdue    :boolean          default(FALSE)
+#  id          :integer          not null, primary key
+#  name        :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  user_id     :integer
+#  active      :boolean          default(FALSE)
+#  overdue     :boolean          default(FALSE)
+#  fortnightly :boolean          default(FALSE)
 #
 
 class JobsController < ApplicationController
@@ -17,7 +18,6 @@ class JobsController < ApplicationController
   # GET /jobs
   def index
     @jobs = Job.includes(:tasks, :user).all
-    #@jobs = Job.all
 
     render json: @jobs, include: ['tasks', 'user']
   end

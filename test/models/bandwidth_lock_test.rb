@@ -1,19 +1,17 @@
 # == Schema Information
 #
-# Table name: users
+# Table name: bandwidth_locks
 #
 #  id         :integer          not null, primary key
-#  name       :string
-#  email      :string
+#  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  ip_range   :string
-#  locked     :boolean          default(FALSE)
+#  lock_key   :string
 #
 
 require 'test_helper'
 
-class UserTest < ActiveSupport::TestCase
+class BandwidthLockTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

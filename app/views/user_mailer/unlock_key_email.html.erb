@@ -1,0 +1,6 @@
+<p><%= @user.name%> failed to complete the <%= @user.jobs.first.name %> on time.</p>
+<p>When they have finished it they will ask you to check it and input the unlock key</p>
+
+<p>Key: <strong><%= @lock_key %></strong></p>
+<br>
+<%= link_to 'Unlock', 'http://scottbase.ryanscott.co.nz/bandwidth-locks'%>

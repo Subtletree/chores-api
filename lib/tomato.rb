@@ -3,7 +3,7 @@ module Tomato
   # Gets locked ips and sends them calls send_tomato_request if any
   def update_router_locks
     locked_ips = []
-    User.where(locked: true).each do |user|
+    User.find(BandwidthLock.pluck(:user_id)).each do |user|
       locked_ips << user.ip_range
     end
     if locked_ips.any?

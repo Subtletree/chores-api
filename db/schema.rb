@@ -11,18 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160229111551) do
+ActiveRecord::Schema.define(version: 20160303010412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "bandwidth_locks", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "lock_key"
+  end
+
+  add_index "bandwidth_locks", ["user_id"], name: "index_bandwidth_locks_on_user_id", using: :btree
+
   create_table "jobs", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "user_id"
-    t.boolean  "active",     default: false
-    t.boolean  "overdue",    default: false
+    t.boolean  "active",      default: false
+    t.boolean  "overdue",     default: false
+    t.boolean  "fortnightly", default: false
   end
 
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree
@@ -42,12 +52,11 @@ ActiveRecord::Schema.define(version: 20160229111551) do
     t.string   "email"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.text     "last_jobs",  default: [],                 array: true
     t.string   "ip_range"
     t.boolean  "locked",     default: false
-    t.string   "lock_key"
   end
 
+  add_foreign_key "bandwidth_locks", "users"
   add_foreign_key "jobs", "users"
   add_foreign_key "tasks", "jobs"
 end

@@ -70,6 +70,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.4.0)
     annotate (2.7.0)
       activerecord (>= 3.2, < 6.0)
       rake (~> 10.4)
@@ -82,6 +83,10 @@ GEM
       activesupport (>= 4.1.0)
     i18n (0.7.0)
     json (1.8.3)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -139,6 +144,7 @@ DEPENDENCIES
   active_model_serializers!
   annotate
   byebug
+  letter_opener
   passenger
   pg (~> 0.18)
   rails!
