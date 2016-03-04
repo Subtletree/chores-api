@@ -11,6 +11,7 @@
 #
 
 class TasksController < ApplicationController
+  before_action :ip_whitelist, only: [:create, :update, :destroy]
   before_action :set_task, only: [:show, :update, :destroy]
 
   # GET /tasks
