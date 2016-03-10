@@ -6,12 +6,11 @@ module Tomato
     User.find(BandwidthLock.pluck(:user_id)).each do |user|
       locked_ips << user.ip_range
     end
-    if locked_ips.any?
-      send_tomato_request(locked_ips)
-    end
+
+    send_tomato_request(locked_ips)
   end
 
-  IP_PARAMS = '%3C1%3C100%3C1%3C100%3C2%3C0%3C0'
+  IP_PARAMS = '%3C100%3C300%3C100%3C300%3C2%3C0%3C0'
   SEPARATOR = '%3E'
 
   require 'openssl'
@@ -29,12 +28,17 @@ module Tomato
       request["cache-control"] = 'no-cache'
       request.basic_auth ENV['TOMATO_USER'], ENV['TOMATO_KEY']
 
-      request_body = "_ajax=1&_nextpage=/%23qos-qoslimit.asp&_nextwait=10&_service=qoslimit-restart&new_qoslimit_enable=1&new_qoslimit_rules="
+      if locked_ips.any?
+        # Add ips to body
+        request_body = "_ajax=1&_nextpage=/%23qos-qoslimit.asp&_nextwait=10&_service=qoslimit-restart&new_qoslimit_enable=1&new_qoslimit_rules="
+        locked_ips.map! {|x| x + IP_PARAMS }
+        request_body += locked_ips.join(SEPARATOR)
+        request_body += '&qosl_enable=0&limit_br1_enable=0&limit_br2_enable=0&limit_br3_enable=0&qos_ibw=16000&qos_obw=700&_http_id=TID9fd0e8d9af21923b'
+      else
+        # Turn off bandwidth limiting
+        request_body = "_ajax=1&_nextpage=/%23qos-qoslimit.asp&_nextwait=10&_service=qoslimit-restart&new_qoslimit_enable=0&new_qoslimit_rules=&qosl_enable=0&limit_br1_enable=0&limit_br2_enable=0&limit_br3_enable=0&_http_id=TID9fd0e8d9af21923b"
+      end
 
-      locked_ips.map! {|x| x + IP_PARAMS }
-      request_body += locked_ips.join(SEPARATOR)
-
-      request_body += '&qosl_enable=0&limit_br1_enable=0&limit_br2_enable=0&limit_br3_enable=0&qos_ibw=16000&qos_obw=700&_http_id=TID9fd0e8d9af21923b'
       request.body = request_body
 
       response = http.request(request)
